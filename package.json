@@ -1,0 +1,32 @@
+{
+  "name": "vision-segmentation-compare",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.5.2",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "prepare:video": "node --env-file-if-exists=.env --import tsx src/cli.ts prepare",
+    "detect": "node --env-file-if-exists=.env --import tsx src/cli.ts detect",
+    "render": "node --import tsx src/cli.ts render",
+    "compare": "node --env-file-if-exists=.env --import tsx src/cli.ts run",
+    "jev:image": "node --env-file-if-exists=.env --import tsx src/jev.ts"
+  },
+  "dependencies": {
+    "@fal-ai/client": "^1.10.1",
+    "sharp": "0.35.5",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "5.0.3"
+  }
+}
