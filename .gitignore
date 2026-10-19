@@ -1,0 +1,15 @@
+node_modules/
+dist/
+coverage/
+.pnpm-store/
+.env
+.env.*
+!.env.example
+data/
+runs/
+*.log
+.DS_Store
+__pycache__/
+images/**/*
+!images/**/
+!images/**/.gitkeep
