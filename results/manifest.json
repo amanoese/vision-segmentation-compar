@@ -1,0 +1,170 @@
+[
+  {
+    "inputSha256": "01ea774c01453325b650fd011d289d5efc908ae5cd8480b771eaf7f1c0ea49c5",
+    "frames": 145,
+    "queries": {
+      "figure": "figure",
+      "sns": "Visual content inappropriate for social media, including excessive skin exposure, nudity, sexual content, graphic violence, gore, and other inappropriate visual expressions"
+    },
+    "counts": {
+      "sam": {
+        "figure": 145,
+        "sns": 0,
+        "figureIncomplete": 0,
+        "snsIncomplete": 0,
+        "figureMissing": 0,
+        "snsMissing": 0
+      },
+      "sam-agent": {
+        "figure": 108,
+        "sns": 109,
+        "figureIncomplete": 9,
+        "snsIncomplete": 0,
+        "figureMissing": 0,
+        "snsMissing": 0
+      },
+      "jev": {
+        "figure": 144,
+        "sns": 14,
+        "figureIncomplete": 0,
+        "snsIncomplete": 0,
+        "figureMissing": 0,
+        "snsMissing": 0
+      }
+    },
+    "partial": false,
+    "previewFrame": 72,
+    "previewTimeSeconds": 3,
+    "agentModels": {
+      "segmentation": "fal-ai/sam-3-1/image",
+      "llm": "qwen/qwen3.7-flash",
+      "maxLlmCalls": 3
+    },
+    "mosaicBlockSize": 48,
+    "image": "results/skin.png",
+    "imageSha256": "4aefe5d8e45e18c9b1ddd29fb699d94677aa56bd1ab0c0c3d295ea160f4f9e23",
+    "input": "data/inputs/armor-burst.mp4",
+    "configs": [
+      "configs/skin-figure-openrouter-agent.json",
+      "configs/skin-sns-openrouter-agent.json"
+    ],
+    "sourceImage": "runs/blog-skin-comparison/outlined-mosaic/figure-and-sns-preview.png",
+    "video": "results/skin.mp4",
+    "videoSha256": "83ee0b7d3a5f1b031d647078da2284c058bbb9f48253b5503164d34002894e6b",
+    "sourceVideo": "runs/blog-skin-comparison/outlined-mosaic/figure-and-sns-bbox-mosaic.mp4",
+    "gif": "results/skin.gif",
+    "gifSha256": "9c29bcc52ff370825ebe96c2f67ea39e2daad2a075d2b39e35ac8c0cb90949d7",
+    "sourceGif": "runs/blog-skin-comparison/outlined-mosaic/article-320p-20fps.gif"
+  },
+  {
+    "inputSha256": "01ea774c01453325b650fd011d289d5efc908ae5cd8480b771eaf7f1c0ea49c5",
+    "frames": 145,
+    "queries": {
+      "figure": "figure",
+      "skin": "exposed skin on the figurine's chest, abdomen and arms"
+    },
+    "counts": {
+      "sam": {
+        "figure": 145,
+        "skin": 145,
+        "figureIncomplete": 0,
+        "skinIncomplete": 0,
+        "figureMissing": 0,
+        "skinMissing": 0
+      },
+      "sam-agent": {
+        "figure": 108,
+        "skin": 116,
+        "figureIncomplete": 9,
+        "skinIncomplete": 0,
+        "figureMissing": 0,
+        "skinMissing": 0
+      },
+      "jev": {
+        "figure": 144,
+        "skin": 94,
+        "figureIncomplete": 0,
+        "skinIncomplete": 0,
+        "figureMissing": 0,
+        "skinMissing": 0
+      }
+    },
+    "partial": false,
+    "previewFrame": 36,
+    "previewTimeSeconds": 1.5,
+    "agentModels": {
+      "segmentation": "fal-ai/sam-3-1/image",
+      "llm": "qwen/qwen3.7-flash",
+      "maxLlmCalls": 3
+    },
+    "mosaicBlockSize": 48,
+    "image": "results/visible-skin.png",
+    "imageSha256": "ee7f3bb5c2ba2ab6b9c7be66acf08f6e6cb957f5759a1aef46723a0130f1b700",
+    "input": "data/inputs/armor-burst.mp4",
+    "configs": ["configs/skin-figure-openrouter-agent.json", "configs/skin-visible-parts.json"],
+    "sourceImage": "runs/blog-visible-skin-comparison/outlined-mosaic/figure-and-skin-preview.png",
+    "video": "results/visible-skin.mp4",
+    "videoSha256": "112ed1a758eaada1a9047bfee34b091f2b0d1448c35d173f6d734734a05e8ffd",
+    "sourceVideo": "runs/blog-visible-skin-comparison/outlined-mosaic/figure-and-skin-bbox-mosaic.mp4",
+    "gif": "results/visible-skin.gif",
+    "gifSha256": "dfd67852cd9273ca439515a9e46cf27e1876af4cb807354a866739a5c55609b0",
+    "sourceGif": "runs/blog-visible-skin-comparison/outlined-mosaic/article-320p-20fps.gif"
+  },
+  {
+    "inputSha256": "58ebb1e88345ed8facd36e12fa0810debefba17d8d48070d9f641efead63dca7",
+    "frames": 145,
+    "queries": {
+      "figure": "figure",
+      "sns": "Visual content inappropriate for social media, including excessive skin exposure, nudity, sexual content, graphic violence, gore, and other inappropriate visual expressions"
+    },
+    "counts": {
+      "sam": {
+        "figure": 145,
+        "sns": 0,
+        "figureIncomplete": 0,
+        "snsIncomplete": 0,
+        "figureMissing": 0,
+        "snsMissing": 0
+      },
+      "sam-agent": {
+        "figure": 140,
+        "sns": 0,
+        "figureIncomplete": 0,
+        "snsIncomplete": 0,
+        "figureMissing": 0,
+        "snsMissing": 0
+      },
+      "jev": {
+        "figure": 145,
+        "sns": 0,
+        "figureIncomplete": 0,
+        "snsIncomplete": 0,
+        "figureMissing": 0,
+        "snsMissing": 0
+      }
+    },
+    "partial": false,
+    "previewFrame": 72,
+    "previewTimeSeconds": 3,
+    "agentModels": {
+      "segmentation": "fal-ai/sam-3-1/image",
+      "llm": "qwen/qwen3.7-flash",
+      "maxLlmCalls": 3
+    },
+    "mosaicBlockSize": 48,
+    "image": "results/mechanical.png",
+    "imageSha256": "42e1acfcbe191643447e0fc34e18529cbf62d9d1a87e875a894300fc39f0969e",
+    "input": "data/inputs/armor-burst-mechanical-interior.mp4",
+    "configs": [
+      "configs/mechanical-figure-openrouter-agent.json",
+      "configs/mechanical-sns-openrouter-agent.json"
+    ],
+    "sourceImage": "runs/blog-mechanical-comparison/outlined-mosaic/figure-and-sns-preview.png",
+    "video": "results/mechanical.mp4",
+    "videoSha256": "b9ade502a7f321e0fa7369781c267572a266862771247e3a3c88f4dd0be2b6ad",
+    "sourceVideo": "runs/blog-mechanical-comparison/outlined-mosaic/figure-and-sns-bbox-mosaic.mp4",
+    "gif": "results/mechanical.gif",
+    "gifSha256": "8d2ef5c5512903871c1cac48322a98f38e3fb9e74cc7efa25fe2de1d02932b24",
+    "sourceGif": "runs/blog-mechanical-comparison/outlined-mosaic/article-320p-20fps.gif"
+  }
+]

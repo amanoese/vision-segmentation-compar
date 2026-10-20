@@ -1,0 +1,9 @@
+{
+  "input": "../data/inputs/armor-burst-mechanical-interior.mp4",
+  "runDir": "../runs/mechanical-figure-openrouter-agent",
+  "query": "figure",
+  "samPrompt": "figure",
+  "samAgentPrompt": "figure",
+  "samAgentMode": "openrouter",
+  "concurrency": 3
+}

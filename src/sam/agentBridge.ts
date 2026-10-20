@@ -8,18 +8,17 @@ import { parseOutput, maskPixels, normalizedBox } from './response.js';
 import { renderOverlay, type Detection } from './render.js';
 
 export async function runSamBridge(
-  options: { image: string; out: string; prompt: string },
+  options: { image: string; out: string; prompt: string; resumeSaved?: boolean },
   injected?: Inference,
 ) {
   const credentials = process.env.FALAI_API_KEY ?? process.env.FAL_KEY;
-  if (!credentials && !injected) throw new Error('fal-key-missing');
+  if (!credentials && !injected && !options.resumeSaved) throw new Error('fal-key-missing');
   const source = await sharp(await readFile(options.image))
     .rotate()
     .png()
     .toBuffer();
   const { width, height } = await sharp(source).metadata();
   if (!width || !height) throw new Error('image-dimensions-missing');
-  await mkdir(options.out, { recursive: false });
   const settings = {
     prompt: options.prompt,
     apply_mask: false,
@@ -29,21 +28,39 @@ export async function runSamBridge(
     include_scores: true,
     include_boxes: true,
   };
-  await writeFile(
-    join(options.out, 'request.json'),
-    JSON.stringify({ endpoint: ENDPOINT, ...settings, image: resolve(options.image) }, null, 2),
-  );
-  const transport = injected ?? new SamTransport(credentials!);
-  const result = await transport.infer(
-    { image_url: `data:image/png;base64,${source.toString('base64')}`, ...settings },
-    async (requestId) => {
-      await writeFile(
-        join(options.out, 'job.json'),
-        JSON.stringify({ requestId, endpoint: ENDPOINT }, null, 2),
-      );
-    },
-  );
-  await writeFile(join(options.out, 'response.json'), JSON.stringify(result.data, null, 2));
+  let result: { data: unknown; requestId: string; elapsedMs: number };
+  if (options.resumeSaved) {
+    const previous = JSON.parse(await readFile(join(options.out, 'request.json'), 'utf8'));
+    if (
+      previous.image !== resolve(options.image) ||
+      previous.prompt !== options.prompt ||
+      previous.endpoint !== ENDPOINT
+    )
+      throw new Error('saved-sam-request-mismatch');
+    const job = JSON.parse(await readFile(join(options.out, 'job.json'), 'utf8'));
+    result = {
+      data: JSON.parse(await readFile(join(options.out, 'response.json'), 'utf8')),
+      requestId: job.requestId,
+      elapsedMs: 0,
+    };
+  } else {
+    await mkdir(options.out, { recursive: false });
+    await writeFile(
+      join(options.out, 'request.json'),
+      JSON.stringify({ endpoint: ENDPOINT, ...settings, image: resolve(options.image) }, null, 2),
+    );
+    const transport = injected ?? new SamTransport(credentials!);
+    result = await transport.infer(
+      { image_url: `data:image/png;base64,${source.toString('base64')}`, ...settings },
+      async (requestId) => {
+        await writeFile(
+          join(options.out, 'job.json'),
+          JSON.stringify({ requestId, endpoint: ENDPOINT }, null, 2),
+        );
+      },
+    );
+    await writeFile(join(options.out, 'response.json'), JSON.stringify(result.data, null, 2));
+  }
   const parsed = parseOutput(result.data);
   const detections: Detection[] = [],
     foreground: Buffer[] = [],
@@ -102,6 +119,7 @@ export async function runSamBridge(
     requestId: result.requestId,
     elapsedMs: result.elapsedMs,
     prompt: options.prompt,
+    recoveredFromSavedResponse: Boolean(options.resumeSaved),
   };
   await writeFile(join(options.out, 'bridge.json'), JSON.stringify(output, null, 2));
   return output;

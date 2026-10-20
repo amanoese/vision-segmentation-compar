@@ -17,7 +17,14 @@ export function pixelBoxes(boxes: number[][], width: number, height: number): Bo
     .filter((b) => b.x0 < b.x1 && b.y0 < b.y1);
 }
 
-export async function panels(source: Buffer, boxes: Box[]) {
+export async function panels(
+  source: Buffer,
+  boxes: Box[],
+  includeMosaic = true,
+  mosaicCellSize = 24,
+) {
+  if (!Number.isInteger(mosaicCellSize) || mosaicCellSize < 2 || mosaicCellSize > 128)
+    throw new Error('Mosaic cell size must be an integer from 2 to 128');
   const { width, height } = await sharp(source).metadata();
   if (!width || !height) throw new Error('Image dimensions missing');
   for (const b of boxes)
@@ -52,9 +59,11 @@ export async function panels(source: Buffer, boxes: Box[]) {
         .toBuffer()
     : source;
   let mosaic = source;
-  if (boxes.length) {
+  if (includeMosaic && boxes.length) {
     const small = await sharp(source)
-      .resize(Math.ceil(width / 24), Math.ceil(height / 24), { fit: 'fill' })
+      .resize(Math.ceil(width / mosaicCellSize), Math.ceil(height / mosaicCellSize), {
+        fit: 'fill',
+      })
       .png()
       .toBuffer();
     const pixelated = await sharp(small)

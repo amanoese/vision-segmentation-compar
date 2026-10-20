@@ -44,13 +44,33 @@ export function normalizedBox(values: readonly number[], width: number, height: 
 export function parseOutput(value: unknown) {
   const output = schema.parse(value);
   const indices = (output.metadata ?? []).map((m) => m.index);
-  if (new Set(indices).size !== indices.length || indices.some((i) => i >= output.masks.length))
+  // Some fal outputs sort masks/boxes/scores and metadata by score while
+  // metadata.index retains the original candidate ID. Confirm the positional
+  // contract from redundant boxes/scores before accepting that representation.
+  const positional =
+    output.metadata?.length === output.masks.length &&
+    !!output.boxes &&
+    output.metadata.every(
+      (meta, i) =>
+        !!meta.box &&
+        !!output.boxes?.[i] &&
+        meta.box.every((v, j) => Math.abs(v - output.boxes![i]![j]!) <= 1e-6) &&
+        (meta.score === undefined ||
+          output.scores?.[i] === undefined ||
+          Math.abs(meta.score - output.scores[i]!) <= 1e-6),
+    );
+  if (
+    new Set(indices).size !== indices.length ||
+    (!positional && indices.some((i) => i >= output.masks.length))
+  )
     throw new Error('invalid-mask-indices');
   for (const list of [output.boxes, output.scores])
     if (list && list.length !== output.masks.length) throw new Error('invalid-mask-array-length');
   return {
     masks: output.masks.map((mask, index) => {
-      const meta = output.metadata?.find((m) => m.index === index);
+      const meta = positional
+        ? output.metadata?.[index]
+        : output.metadata?.find((m) => m.index === index);
       const normalized = meta?.box ?? output.boxes?.[index];
       const confidence = meta?.score ?? output.scores?.[index];
       if (

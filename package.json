@@ -13,9 +13,12 @@
     "test": "vitest run",
     "prepare:video": "node --env-file-if-exists=.env --import tsx src/cli.ts prepare",
     "detect": "node --env-file-if-exists=.env --import tsx src/cli.ts detect",
-    "render": "node --import tsx src/cli.ts render",
+    "render": "node --env-file-if-exists=.env --import tsx src/cli.ts render",
     "compare": "node --env-file-if-exists=.env --import tsx src/cli.ts run",
-    "jev:image": "node --env-file-if-exists=.env --import tsx src/jev.ts"
+    "jev:image": "node --env-file-if-exists=.env --import tsx src/jev.ts",
+    "render:videos": "node --env-file-if-exists=.env --import tsx src/cli.ts render-videos",
+    "render:2x2": "node --env-file-if-exists=.env --import tsx src/render2x2.ts",
+    "render:blog": "node --env-file-if-exists=.env --import tsx src/renderDualQueryBbox.ts"
   },
   "dependencies": {
     "@fal-ai/client": "^1.10.1",

@@ -1,0 +1,9 @@
+{
+  "input": "../data/inputs/armor-burst.mp4",
+  "runDir": "../runs/skin-figure-openrouter-agent",
+  "query": "figure",
+  "samPrompt": "figure",
+  "samAgentPrompt": "figure",
+  "samAgentMode": "openrouter",
+  "concurrency": 3
+}

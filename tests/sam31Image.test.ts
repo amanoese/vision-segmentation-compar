@@ -3,6 +3,21 @@ import sharp from 'sharp';
 import { normalizedBox, parseOutput, maskPixels } from '../src/sam/response.js';
 
 describe('SAM 3.1 image geometry and masks', () => {
+  it('accepts score-sorted arrays when metadata retains original candidate IDs', () => {
+    const a = [0.5, 0.5, 0.5, 0.5],
+      b = [0.2, 0.2, 0.1, 0.1];
+    const parsed = parseOutput({
+      masks: [{ url: 'first' }, { url: 'second' }],
+      boxes: [a, b],
+      scores: [0.9, 0.5],
+      metadata: [
+        { index: 1, box: a, score: 0.9 },
+        { index: 0, box: b, score: 0.5 },
+      ],
+    });
+    expect(parsed.masks[0]).toMatchObject({ url: 'first', normalized: a, score: 0.9 });
+    expect(parsed.masks[1]).toMatchObject({ url: 'second', normalized: b, score: 0.5 });
+  });
   it('converts normalized cxcywh to exclusive pixel bounds', () => {
     expect(normalizedBox([0.5, 0.5, 0.5, 0.5], 1280, 720)).toEqual({
       x0: 320,

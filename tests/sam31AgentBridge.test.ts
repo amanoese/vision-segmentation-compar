@@ -1,7 +1,7 @@
 import { mkdtemp, rm, readFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { expect, it } from 'vitest';
+import { expect, it, vi } from 'vitest';
 import sharp from 'sharp';
 import { runSamBridge } from '../src/sam/agentBridge.js';
 
@@ -41,6 +41,16 @@ it('converts fal cxcywh into official Agent normalized xywh and preserves masks'
     expect(result.pred_scores).toEqual([0.9]);
     expect(await readFile(result.png_masks[0]!)).toEqual(mask);
     expect(await readFile(join(root, 'out/request.json'), 'utf8')).not.toContain('base64');
+    const forbidden = vi.fn(async () => {
+      throw new Error('must not resubmit');
+    });
+    const recovered = await runSamBridge(
+      { image, out: join(root, 'out'), prompt: 'skin', resumeSaved: true },
+      { infer: forbidden },
+    );
+    expect(recovered.pred_boxes).toEqual(result.pred_boxes);
+    expect(recovered.recoveredFromSavedResponse).toBe(true);
+    expect(forbidden).not.toHaveBeenCalled();
   } finally {
     await rm(root, { recursive: true, force: true });
   }

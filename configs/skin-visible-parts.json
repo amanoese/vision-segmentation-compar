@@ -1,0 +1,9 @@
+{
+  "input": "../data/inputs/armor-burst.mp4",
+  "runDir": "../runs/skin-visible-parts",
+  "query": "exposed skin on the figurine's chest, abdomen and arms",
+  "samPrompt": "exposed skin on the figurine's chest, abdomen and arms",
+  "samAgentPrompt": "exposed skin on the figurine's chest, abdomen and arms",
+  "samAgentMode": "openrouter",
+  "concurrency": 3
+}

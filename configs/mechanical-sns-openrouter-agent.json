@@ -1,0 +1,9 @@
+{
+  "input": "../data/inputs/armor-burst-mechanical-interior.mp4",
+  "runDir": "../runs/mechanical-sns-openrouter-agent",
+  "query": "Visual content inappropriate for social media, including excessive skin exposure, nudity, sexual content, graphic violence, gore, and other inappropriate visual expressions",
+  "samPrompt": "Visual content inappropriate for social media, including excessive skin exposure, nudity, sexual content, graphic violence, gore, and other inappropriate visual expressions",
+  "samAgentPrompt": "Visual content inappropriate for social media, including excessive skin exposure, nudity, sexual content, graphic violence, gore, and other inappropriate visual expressions",
+  "samAgentMode": "openrouter",
+  "concurrency": 3
+}

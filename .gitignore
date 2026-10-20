@@ -5,11 +5,46 @@ coverage/
 .env
 .env.*
 !.env.example
-data/
-runs/
+
+# Local experiments, API responses, extracted frames and generated videos.
+/runs/
+/local-archive/
+/docs/
+/images/
+/data/*
+!/data/inputs/
+/data/inputs/*
+!/data/inputs/armor-burst.mp4
+!/data/inputs/armor-burst-mechanical-interior.mp4
+
+# Publish only the selected final media and their small metadata.
+/results/*
+!/results/README.md
+!/results/manifest.json
+!/results/skin.png
+!/results/visible-skin.png
+!/results/mechanical.png
+
+# Exclude other videos, animation exports, logs and local credentials.
+*.mp4
+*.mov
+*.webm
+*.mkv
+*.avi
+*.gif
+!/data/inputs/armor-burst.mp4
+!/data/inputs/armor-burst-mechanical-interior.mp4
 *.log
 .DS_Store
 __pycache__/
-images/**/*
-!images/**/
-!images/**/.gitkeep
+/.agents/
+/.codex/
+/.aws/
+
+# Final comparison video/GIF pairs selected for publication.
+!/results/skin.mp4
+!/results/skin.gif
+!/results/visible-skin.mp4
+!/results/visible-skin.gif
+!/results/mechanical.mp4
+!/results/mechanical.gif

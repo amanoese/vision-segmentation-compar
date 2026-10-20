@@ -1,7 +1,0 @@
-{
-  "input": "../data/inputs/armor-burst.mp4",
-  "runDir": "../runs/armor-burst",
-  "query": "肌露出",
-  "samAgentPrompt": "exposed torso",
-  "concurrency": 3
-}
